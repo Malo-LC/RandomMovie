@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const lines = require('./lines');
+const { getLinesFilms, getLinesActors } = require('./lines');
 app.use(express.json());
 app.use(
   cors({
@@ -11,11 +11,22 @@ app.use(
   })
 );
 
+const Films = getLinesFilms();
+const Acteurs = getLinesActors();
+
 app.get('/film/randomId', (req, res) => {
   let min = Math.ceil(0);
-  let max = Math.floor(lines.length);
+  let max = Math.floor(Films.length);
   let rand = Math.floor(Math.random() * (max - min + 1)) + min;
-  const jsonedLine = JSON.parse(lines[rand]);
+  const jsonedLine = JSON.parse(Films[rand]);
+  res.json(jsonedLine.id);
+});
+
+app.get('/acteur/randomId', (req, res) => {
+  let min = Math.ceil(0);
+  let max = Math.floor(Acteurs.length);
+  let rand = Math.floor(Math.random() * (max - min + 1)) + min;
+  const jsonedLine = JSON.parse(Acteurs[rand]);
   res.json(jsonedLine.id);
 });
 
