@@ -5,7 +5,7 @@ const { getLinesFilms, getLinesActors } = require('./lines');
 app.use(express.json());
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: '*',
     credentials: true,
     methods: ['GET', 'POST'],
   })
@@ -34,6 +34,10 @@ app.get('/acteur/randomId', (req, res) => {
 // readline module reads line by line
 // but from a readable stream only.
 
-app.listen(5000, () => {
+app.get('/', (req, res) => {
+  res.json('Server is up and running');
+});
+
+app.listen(process.env.PORT || 5000, () => {
   console.log('Server is running on port 5000');
 });

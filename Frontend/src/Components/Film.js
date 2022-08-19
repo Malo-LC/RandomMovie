@@ -1,29 +1,35 @@
 import axios from 'axios';
 import { React, useState, useEffect } from 'react';
-import { key, ENDPOINT } from './config';
+import { key } from '../config';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 
 export function Film() {
+  const { id } = useParams();
   const [film, setFilm] = useState('');
   const [credits, setCredits] = useState('');
   const [randomNumber, setRandomNumber] = useState(useParams().id);
   const [similmar, setSimilar] = useState(useParams().id);
   const navigate = useNavigate();
-
   useEffect(() => {
-    async function getFilmInfo() {
+    function getFilmInfo() {
       try {
-        const res = await axios.get(
-          `https://api.themoviedb.org/3/movie/${randomNumber}?api_key=${key}&language=fr`
-        );
-        setFilm(res.data);
-        // console.log(res.data);
+        axios
+          .get(
+            `https://api.themoviedb.org/3/movie/${randomNumber}?api_key=${key}&language=fr`
+          )
+          .then((res) => {
+            setFilm(res.data);
+          });
       } catch (error) {
         console.log(error);
       }
     }
     getFilmInfo();
   }, [randomNumber]);
+
+  useEffect(() => {
+    setRandomNumber(id);
+  }, [id]);
 
   useEffect(() => {
     async function getCreditsFilm() {
@@ -37,7 +43,6 @@ export function Film() {
         `https://api.themoviedb.org/3/movie/${film.id}/similar?api_key=${key}&language=fr`
       );
       setSimilar(res.data);
-      console.log(res.data);
     }
     if (film.id !== undefined) {
       getCreditsFilm();
@@ -54,12 +59,6 @@ export function Film() {
     return 'NoReal';
   }
 
-  function getRandomFilmId() {
-    axios.get(`${ENDPOINT}/film/randomId`).then((res) => {
-      setRandomNumber(res.data);
-      navigate(`/film/${res.data}`);
-    });
-  }
   function runtimeToHour(minutes) {
     let hours = 0;
     while (minutes >= 60) {
@@ -75,15 +74,6 @@ export function Film() {
   return (
     <div className="bg-black  h-screen">
       <div className="bg-black w-screen h-max flex flex-col items-center p-10 pt-6">
-        <button
-          type="button"
-          onClick={() => {
-            getRandomFilmId();
-          }}
-          className="bg-slate-500 w-40"
-        >
-          Film au hasard
-        </button>
         {film.length !== 0 ? (
           <div className="grid grid-cols-3 place-items-center place-content-between border rounded  w-10/12 m-2 text-white">
             <img
@@ -117,13 +107,15 @@ export function Film() {
                       <strong className="underline">Réalisateur:</strong>{' '}
                       {getReal().name}{' '}
                     </p>
-                    <img
-                      src={`https://image.tmdb.org/t/p/original${
-                        getReal().profile_path
-                      }`}
-                      className="w-7"
-                      alt=""
-                    />
+                    {getReal().profile_path && (
+                      <img
+                        src={`https://image.tmdb.org/t/p/original${
+                          getReal().profile_path
+                        }`}
+                        className="w-7"
+                        alt="Réalisateur"
+                      />
+                    )}
                   </div>
                 )}
                 <div className="p-4 pt-0 flex pb-1">
@@ -156,7 +148,7 @@ export function Film() {
                             </p>
                           </div>
                         );
-                      } else return <div />;
+                      } else return <div key={acteur.id} />;
                     })}
                   </div>
                 )}
@@ -177,7 +169,6 @@ export function Film() {
                               className="w-24 rounded cursor-pointer"
                               alt="acteur"
                               onClick={() => {
-                                setRandomNumber(filmSim.id);
                                 navigate(`/film/${filmSim.id}`);
                               }}
                             />
@@ -187,7 +178,7 @@ export function Film() {
                           </div>
                         );
                       } else {
-                        return <div />;
+                        return <div key={filmSim.id} />;
                       }
                     })}
                   </div>

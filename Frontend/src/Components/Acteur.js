@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { React, useState, useEffect } from 'react';
-import { key, ENDPOINT } from './config';
+import { key } from '../config';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export function Acteur() {
@@ -8,7 +8,11 @@ export function Acteur() {
   const [credits, setCredits] = useState('');
   const [randomNumber, setRandomNumber] = useState(useParams().id);
   const navigate = useNavigate();
+  const { id } = useParams();
 
+  useEffect(() => {
+    setRandomNumber(id);
+  }, [id]);
   useEffect(() => {
     async function getActeurInfo() {
       try {
@@ -30,53 +34,21 @@ export function Acteur() {
       );
       setCredits(res.data);
     }
-    //   async function getSimilarFilms() {
-    //     const res = await axios.get(
-    //       `https://api.themoviedb.org/3/movie/${film.id}/similar?api_key=${key}&language=fr`
-    //     );
-    //     setSimilar(res.data);
-    //     console.log(res.data);
-    //   }
+
     if (acteur.id !== undefined) {
       getCreditsActor();
-      // getSimilarFilms();
     }
   }, [acteur]);
 
-  //   function getReal() {
-  //     for (let i = 0; i < credits.crew.length; i++) {
-  //       if (credits.crew[i].job === 'Director') {
-  //         return credits.crew[i];
-  //       }
-  //     }
-  //     return 'NoReal';
-  //   }
-
-  function getRandomActorId() {
-    axios.get(`${ENDPOINT}/acteur/randomId`).then((res) => {
-      setRandomNumber(res.data);
-      navigate(`/acteur/${res.data}`);
-    });
-  }
-
   return (
     <div className="bg-black w-screen h-screen flex flex-col items-center p-10 pt-6">
-      <button
-        type="button"
-        onClick={() => {
-          getRandomActorId();
-        }}
-        className="bg-slate-500 w-40"
-      >
-        Acteur au hasard
-      </button>
       {acteur.length !== 0 ? (
         <div className="grid grid-cols-3 place-items-center place-content-between border rounded  w-10/12 m-2 text-white">
           <img
             className=" max-w-md m-4 h-auto w-auto block"
             key={acteur.id}
             src={`https://image.tmdb.org/t/p/original${acteur.profile_path}`}
-            alt="Poster du film"
+            alt="Acteur"
           />
           <div className=" w-full col-span-2">
             <div className="flex flex-row items-center p-0">
@@ -117,7 +89,6 @@ export function Acteur() {
                             className="w-24 rounded cursor-pointer"
                             alt="acteur"
                             onClick={() => {
-                              setRandomNumber(film.id);
                               navigate(`/film/${film.id}`);
                             }}
                           />
@@ -127,7 +98,7 @@ export function Acteur() {
                         </div>
                       );
                     } else {
-                      return <div />;
+                      return <div key={film.id} />;
                     }
                   })}
                 </div>
