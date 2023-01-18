@@ -15,19 +15,15 @@ const Films = getLinesFilms();
 const Acteurs = getLinesActors();
 
 app.get("/film/randomId", (req, res) => {
-  let min = Math.ceil(0);
-  let max = Math.floor(Films.length);
-  let rand = Math.floor(Math.random() * (max - min + 1)) + min;
+  const rand = Math.floor(Math.random() * (Films.length + 1));
   const jsonedLine = JSON.parse(Films[rand]);
-  res.json(jsonedLine.id);
+  return res.status(200).json(jsonedLine.id);
 });
 
 app.get("/acteur/randomId", (req, res) => {
-  let min = Math.ceil(0);
-  let max = Math.floor(Acteurs.length);
-  let rand = Math.floor(Math.random() * (max - min + 1)) + min;
+  const rand = Math.floor(Math.random() * (Acteurs.length + 1));
   const jsonedLine = JSON.parse(Acteurs[rand]);
-  res.json(jsonedLine.id);
+  return res.status(200).json(jsonedLine.id);
 });
 
 app.get("/", (req, res) => {
