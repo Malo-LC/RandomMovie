@@ -1,11 +1,12 @@
-import axios from 'axios';
-import { React, useState, useEffect } from 'react';
-import { key } from '../config';
-import { useParams, useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { React, useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 export function Acteur() {
-  const [acteur, setActeur] = useState('');
-  const [credits, setCredits] = useState('');
+  const key = process.env.REACT_APP_API_KEY;
+
+  const [acteur, setActeur] = useState("");
+  const [credits, setCredits] = useState("");
   const [randomNumber, setRandomNumber] = useState(useParams().id);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -73,7 +74,7 @@ export function Acteur() {
             {credits.cast && (
               <>
                 <p key={credits.id} className="underline font-bold pl-4">
-                  Connu pour:{' '}
+                  Connu pour:{" "}
                 </p>
                 &ensp;
                 <div className="flex flex-row">

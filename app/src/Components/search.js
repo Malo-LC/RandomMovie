@@ -1,11 +1,13 @@
-import axios from 'axios';
-import { React, useState, useEffect } from 'react';
-import { key } from '../config';
-import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { React, useState, useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
 
 export function Search() {
-  const [search, setSearch] = useState('');
-  const [result, setResult] = useState('');
+  const key = process.env.REACT_APP_API_KEY;
+
+  const [search, setSearch] = useState("");
+  const [result, setResult] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +24,7 @@ export function Search() {
     if (search) {
       getSearch();
     } else {
-      setResult('');
+      setResult("");
     }
   }, [search]);
 
@@ -47,7 +49,7 @@ export function Search() {
                   className="flex flex-row w-80 text-white border cursor-pointer bg-black"
                   onClick={() => {
                     navigate(`/film/${film.id}`);
-                    setSearch('');
+                    setSearch("");
                   }}
                 >
                   <img

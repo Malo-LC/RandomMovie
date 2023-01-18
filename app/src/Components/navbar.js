@@ -1,10 +1,11 @@
-import axios from 'axios';
-import { React } from 'react';
-import { ENDPOINT } from '../config';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search } from './search';
+import axios from "axios";
+import { React } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Search } from "./search";
 
 export function Navbar() {
+  const ENDPOINT = process.env.REACT_APP_API_URL;
+  console.log(ENDPOINT);
   const navigate = useNavigate();
 
   function getRandomFilmId() {
@@ -20,7 +21,7 @@ export function Navbar() {
   }
   return (
     <div className="bg-black flex flex-row items-center w-screen justify-center ">
-      <Link to={'/'}>
+      <Link to={"/"}>
         <button type="button" className="bg-slate-500 w-40 m-5 mb-0">
           Acceuil
         </button>

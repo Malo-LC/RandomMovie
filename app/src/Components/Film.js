@@ -1,15 +1,16 @@
-import axios from 'axios';
-import { React, useState, useEffect } from 'react';
-import { key } from '../config';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import axios from "axios";
+import { React, useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 export function Film() {
+  const key = process.env.REACT_APP_API_KEY;
   const { id } = useParams();
-  const [film, setFilm] = useState('');
-  const [credits, setCredits] = useState('');
+  const [film, setFilm] = useState("");
+  const [credits, setCredits] = useState("");
   const [randomNumber, setRandomNumber] = useState(useParams().id);
   const [similmar, setSimilar] = useState(useParams().id);
   const navigate = useNavigate();
+
   useEffect(() => {
     function getFilmInfo() {
       try {
@@ -52,11 +53,11 @@ export function Film() {
 
   function getReal() {
     for (let i = 0; i < credits.crew.length; i++) {
-      if (credits.crew[i].job === 'Director') {
+      if (credits.crew[i].job === "Director") {
         return credits.crew[i];
       }
     }
-    return 'NoReal';
+    return "NoReal";
   }
 
   function runtimeToHour(minutes) {
@@ -104,8 +105,8 @@ export function Film() {
                 {credits.crew && (
                   <div className="flex flex-row items-center pb-0">
                     <p className="p-4 pb-1">
-                      <strong className="underline">Réalisateur:</strong>{' '}
-                      {getReal().name}{' '}
+                      <strong className="underline">Réalisateur:</strong>{" "}
+                      {getReal().name}{" "}
                     </p>
                     {getReal().profile_path && (
                       <img

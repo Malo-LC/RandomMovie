@@ -1,8 +1,8 @@
-import { React } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Film } from './Components/Film';
-import { Acteur } from './Components/Acteur';
-import { Navbar } from './Components/navbar';
+import { React } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Film } from "./Components/Film";
+import { Acteur } from "./Components/Acteur";
+import { Navbar } from "./Components/navbar";
 
 function App() {
   function Home() {
