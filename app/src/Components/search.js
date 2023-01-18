@@ -1,46 +1,40 @@
-import axios from "axios";
 import { React, useState, useEffect } from "react";
-
 import { useNavigate } from "react-router-dom";
+import API from "../services/movieAPI";
 
 export function Search() {
-  const key = process.env.REACT_APP_API_KEY;
-
-  const [search, setSearch] = useState("");
-  const [result, setResult] = useState("");
+  const [search, setSearch] = useState(null);
+  const [result, setResult] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function getSearch() {
-      try {
-        const res = await axios.get(
-          `https://api.themoviedb.org/3/search/movie?api_key=${key}&language=fr&query=${search}&page=1`
-        );
-        setResult(res.data);
-      } catch (error) {
-        console.log(error);
-      }
+  async function getSearch() {
+    try {
+      const res = await API.getSearch(search);
+      setResult(res.data);
+    } catch (error) {
+      console.log(error);
     }
+  }
+
+  useEffect(() => {
     if (search) {
       getSearch();
     } else {
-      setResult("");
+      setResult(null);
     }
   }, [search]);
 
   return (
-    <div className="bg-black w-40  flex flex-col items-center  m-5 mb-0 text-white">
+    <div className="bg-slate-500 w-40 m-5 mb-0 text-white">
       <input
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
+        onChange={(e) => setSearch(e.target.value)}
         value={search}
         placeholder="Rechercher un film..."
-        className=" bg-inherit focus:outline-none border-b "
+        className="bg-black focus:outline-none border-b w-40 border-white"
         type="text"
       />
-      {result.results && (
-        <div className=" absolute mt-10">
+      {result?.results && (
+        <div className="absolute">
           {result.results.slice([0], [4]).map((film) => {
             if (film.poster_path) {
               return (
@@ -49,18 +43,13 @@ export function Search() {
                   className="flex flex-row w-80 text-white border cursor-pointer bg-black"
                   onClick={() => {
                     navigate(`/film/${film.id}`);
-                    setSearch("");
-                  }}
-                >
-                  <img
-                    src={`https://image.tmdb.org/t/p/original${film.poster_path}`}
-                    alt="poster"
-                    className=" w-12"
-                  />
+                    setSearch(null);
+                  }}>
+                  <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt="poster" className="w-12" />
                   <p>{film.title}</p>
                 </div>
               );
-            } else return <div key={film.id} />;
+            }
           })}
         </div>
       )}

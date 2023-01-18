@@ -7,8 +7,8 @@ import { Navbar } from "./Components/navbar";
 function App() {
   function Home() {
     return (
-      <div className=" h-screen bg-black text-white flex flex-col items-center">
-        <h1 className=" text-9xl mt-24">Acceuil</h1>
+      <div className="h-screen bg-black text-white flex flex-col items-center">
+        <h1 className="text-9xl mt-24">Acceuil</h1>
       </div>
     );
   }

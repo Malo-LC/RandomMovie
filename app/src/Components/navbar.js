@@ -16,31 +16,16 @@ export function Navbar() {
     navigate(`/acteur/${res.data}`);
   }
   return (
-    <div className="bg-black flex flex-row items-center w-screen justify-center ">
-      <Link to={"/"}>
-        <button type="button" className="bg-slate-500 w-40 m-5 mb-0">
-          Acceuil
-        </button>
-      </Link>
-      <button
-        type="button"
-        onClick={() => {
-          getRandomFilmId();
-        }}
-        className="bg-slate-500 w-40 m-5 mb-0"
-      >
+    <div className="bg-black flex flex-row items-center w-screen justify-center">
+      <button type="button" onClick={() => navigate("/")} className="bg-slate-500 w-40 m-5 mb-0">
+        Acceuil
+      </button>
+      <button type="button" onClick={() => getRandomFilmId()} className="bg-slate-500 w-40 m-5 mb-0">
         Film au hasard
       </button>
-      <button
-        type="button"
-        onClick={() => {
-          getRandomActorId();
-        }}
-        className="bg-slate-500 w-40 m-5 mb-0"
-      >
+      <button type="button" onClick={() => getRandomActorId()} className="bg-slate-500 w-40 m-5 mb-0">
         Acteur au hasard
       </button>
-
       <Search />
     </div>
   );

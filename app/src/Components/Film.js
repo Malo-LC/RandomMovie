@@ -27,6 +27,7 @@ export function Film() {
   };
 
   useEffect(() => {
+    setFilm(null);
     getFilmInfo();
   }, [id]);
 
@@ -48,15 +49,11 @@ export function Film() {
   }
 
   return (
-    <div className="bg-black w-screen h-max flex flex-col items-center p-10 pt-6">
+    <div className="w-screen h-max flex flex-col items-center p-10 pt-6">
       {film ? (
         <div className="flex border rounded-lg w-10/12 m-2 text-white">
           <div className="mt-5">
-            <img
-              className="max-w-xs m-4 rounded-lg h-auto shrink-0"
-              src={`https://image.tmdb.org/t/p/original${film.poster_path}`}
-              alt="Poster du film"
-            />
+            <img className="max-w-xs m-4 rounded-lg" src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt="Poster du film" />
           </div>
           <div className="w-full">
             <div className="flex flex-row items-center p-0">
@@ -128,7 +125,7 @@ export function Film() {
           </div>
         </div>
       ) : (
-        <h1>Aucun film...</h1>
+        <h1 className="text-5xl text-white">Aucun Film...</h1>
       )}
     </div>
   );
