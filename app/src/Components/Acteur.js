@@ -3,13 +3,14 @@ import { React, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 export function Acteur() {
+  const { id } = useParams();
+
   const key = process.env.REACT_APP_API_KEY;
 
   const [acteur, setActeur] = useState("");
   const [credits, setCredits] = useState("");
-  const [randomNumber, setRandomNumber] = useState(useParams().id);
+  const [randomNumber, setRandomNumber] = useState(id);
   const navigate = useNavigate();
-  const { id } = useParams();
 
   useEffect(() => {
     setRandomNumber(id);
@@ -42,12 +43,11 @@ export function Acteur() {
   }, [acteur]);
 
   return (
-    <div className="bg-black w-screen h-screen flex flex-col items-center p-10 pt-6">
+    <div className=" w-screen h-screen flex flex-col items-center p-10 pt-6">
       {acteur.length !== 0 ? (
         <div className="grid grid-cols-3 place-items-center place-content-between border rounded  w-10/12 m-2 text-white">
           <img
-            className=" max-w-md m-4 h-auto w-auto block"
-            key={acteur.id}
+            className="max-w-xs m-4 h-auto w-auto block"
             src={`https://image.tmdb.org/t/p/original${acteur.profile_path}`}
             alt="Acteur"
           />

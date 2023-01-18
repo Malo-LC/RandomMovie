@@ -1,23 +1,19 @@
-import axios from "axios";
 import { React } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search } from "./search";
+import API from "../services/movieAPI";
 
 export function Navbar() {
-  const ENDPOINT = process.env.REACT_APP_API_URL;
-  console.log(ENDPOINT);
   const navigate = useNavigate();
 
-  function getRandomFilmId() {
-    axios.get(`${ENDPOINT}/film/randomId`).then((res) => {
-      navigate(`/film/${res.data}`);
-    });
+  async function getRandomFilmId() {
+    const res = await API.getRandomFilmId();
+    navigate(`/film/${res.data}`);
   }
 
-  function getRandomActorId() {
-    axios.get(`${ENDPOINT}/acteur/randomId`).then((res) => {
-      navigate(`/acteur/${res.data}`);
-    });
+  async function getRandomActorId() {
+    const res = await API.getRandomFilmId();
+    navigate(`/acteur/${res.data}`);
   }
   return (
     <div className="bg-black flex flex-row items-center w-screen justify-center ">
