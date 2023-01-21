@@ -30,8 +30,10 @@ app.get("/acteur/randomId", async (req, res) => {
   return res.status(200).json(Acteurs[rand].id);
 });
 
+const date = new Date();
+
 app.get("/", (req, res) => {
-  res.json("Server is up and running");
+  res.json({ message: "Server is up and running", lastDeploy: date });
 });
 
 app.listen(process.env.PORT || 5000, () => {
