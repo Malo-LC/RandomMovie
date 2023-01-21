@@ -56,10 +56,8 @@ export function Acteur() {
             <p className="p-4">{acteur.biography}</p>
             {credits?.cast && (
               <>
-                <p key={credits.id} className="underline font-bold p-4">
-                  Connu pour:
-                </p>
-                <div className="flex flex-row">
+                <p className="underline font-bold p-4">Connu pour:</p>
+                <div className="flex flex-row flex-wrap">
                   {credits.cast.slice([0], [10]).map((film) => {
                     if (film.backdrop_path) {
                       return (
