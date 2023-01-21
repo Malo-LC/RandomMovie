@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.1",
+    "gunzip-file": "^0.1.1",
+    "node-fetch": "^2.6.8",
     "nodemon": "^2.0.19"
   }
 }

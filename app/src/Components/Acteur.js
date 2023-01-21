@@ -1,16 +1,18 @@
 import { React, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../services/movieAPI";
+import { RiLoader2Line } from "react-icons/ri";
 
 export function Acteur() {
   const { id } = useParams();
   const [acteur, setActeur] = useState(null);
   const [credits, setCredits] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   async function getActeurInfo() {
     try {
-      const res = await API.getMovieDb("person", id);
+      const res = await API.getMovieDbId("person", id);
       setActeur(res.data);
     } catch (error) {
       console.log(error);
@@ -18,8 +20,10 @@ export function Acteur() {
   }
 
   async function getCreditsActor() {
-    const res = await API.getMovieDb("person", acteur.id, "/movie_credits");
+    setLoading(true);
+    const res = await API.getMovieDbId("person", acteur.id, "/movie_credits");
     setCredits(res.data);
+    setLoading(false);
   }
   useEffect(() => {
     setActeur(null);
@@ -27,7 +31,6 @@ export function Acteur() {
   }, [id]);
 
   useEffect(() => {
-    console.log(acteur);
     if (!acteur) return;
     getCreditsActor();
   }, [acteur]);
@@ -78,7 +81,16 @@ export function Acteur() {
           </div>
         </div>
       ) : (
-        <h1 className="text-5xl text-white">Aucun Acteur...</h1>
+        <>
+          {loading ? (
+            <div>
+              <h1 className="text-5xl text-white">Chargement...</h1>
+              <RiLoader2Line className="animate-spin text-5xl text-white" />
+            </div>
+          ) : (
+            <h1 className="text-5xl text-white">Aucun Acteur...</h1>
+          )}
+        </>
       )}
     </div>
   );

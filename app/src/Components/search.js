@@ -28,7 +28,7 @@ export function Search() {
     <div className="bg-slate-500 w-40 m-5 mb-0 text-white">
       <input
         onChange={(e) => setSearch(e.target.value)}
-        value={search}
+        value={search || ""}
         placeholder="Rechercher un film..."
         className="bg-black focus:outline-none border-b w-40 border-white"
         type="text"

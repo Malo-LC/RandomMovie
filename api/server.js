@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const { getLinesFilms, getLinesActors } = require("./lines");
+const { getLinesFilms, getLinesActors, downloadDaily } = require("./lines");
 app.use(express.json());
 app.use(
   cors({
@@ -10,20 +10,24 @@ app.use(
     methods: ["GET", "POST"],
   })
 );
+downloadDaily();
 
-const Films = getLinesFilms();
-const Acteurs = getLinesActors();
+app.get("/film/randomId", async (req, res) => {
+  const Films = await getLinesFilms();
+  if (!Films) return res.status(500).json("Error while fetching films");
 
-app.get("/film/randomId", (req, res) => {
   const rand = Math.floor(Math.random() * (Films.length + 1));
-  const jsonedLine = JSON.parse(Films[rand]);
-  return res.status(200).json(jsonedLine.id);
+
+  return res.status(200).json(Films[rand].id);
 });
 
-app.get("/acteur/randomId", (req, res) => {
+app.get("/acteur/randomId", async (req, res) => {
+  const Acteurs = await getLinesActors();
+  if (!Acteurs) return res.status(500).json("Error while fetching actors");
+
   const rand = Math.floor(Math.random() * (Acteurs.length + 1));
-  const jsonedLine = JSON.parse(Acteurs[rand]);
-  return res.status(200).json(jsonedLine.id);
+
+  return res.status(200).json(Acteurs[rand].id);
 });
 
 app.get("/", (req, res) => {

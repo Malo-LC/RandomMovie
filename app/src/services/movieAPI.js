@@ -14,11 +14,14 @@ class API {
     return axios.get(`${this.endpoint}/acteur/randomId`);
   }
 
-  getMovieDb(type, randomNumber, details = "") {
-    return axios.get(`https://api.themoviedb.org/3/${type}/${randomNumber}${details}?api_key=${this.key}&language=fr`);
+  getMovieDbId(type, id, detail = "") {
+    return axios.get(`https://api.themoviedb.org/3/${type}/${id}${detail}?api_key=${this.key}&language=fr`);
   }
   getSearch(search) {
     return axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${this.key}&language=fr&query=${search}&page=1`);
+  }
+  getRoute(type, detail) {
+    return axios.get(`https://api.themoviedb.org/3/${type}/${detail}?api_key=${this.key}&language=fr`);
   }
 }
 

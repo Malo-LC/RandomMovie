@@ -12,7 +12,7 @@ export function Navbar() {
   }
 
   async function getRandomActorId() {
-    const res = await API.getRandomFilmId();
+    const res = await API.getRandomActorId();
     navigate(`/acteur/${res.data}`);
   }
   return (

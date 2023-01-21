@@ -7,22 +7,25 @@ export function Film() {
   const [film, setFilm] = useState(null);
   const [credits, setCredits] = useState(null);
   const [similmar, setSimilar] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const getFilmInfo = async () => {
     try {
-      const res = await API.getMovieDb("movie", id);
+      setLoading(true);
+      const res = await API.getMovieDbId("movie", id);
       setFilm(res.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
   const getCreditsFilm = async () => {
-    const res = await API.getMovieDb("movie", film.id, "/credits");
+    const res = await API.getMovieDbId("movie", film.id, "/credits");
     setCredits(res.data);
   };
   const getSimilarFilms = async () => {
-    const res = await API.getMovieDb("movie", film.id, "/similar");
+    const res = await API.getMovieDbId("movie", film.id, "/similar");
     setSimilar(res.data);
   };
 
@@ -125,7 +128,7 @@ export function Film() {
           </div>
         </div>
       ) : (
-        <h1 className="text-5xl text-white">Aucun Film...</h1>
+        <>{loading ? <h1 className="text-5xl text-white">Chargement...</h1> : <h1 className="text-5xl text-white">Aucun Film...</h1>}</>
       )}
     </div>
   );
