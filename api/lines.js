@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 async function getLinesFilms() {
   try {
     const data = fs.readFileSync("movieIDS.json", "UTF-8");
