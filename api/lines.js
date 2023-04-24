@@ -16,4 +16,4 @@ async function getLinesActors() {
   }
 }
 
-module.exports = { getLinesFilms, getLinesActors, downloadDaily };
+module.exports = { getLinesFilms, getLinesActors };
