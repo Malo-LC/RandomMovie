@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const { getLinesFilms, getLinesActors, downloadDaily } = require("./lines");
+const { getLinesFilms, getLinesActors } = require("./lines");
 app.use(express.json());
 app.use(
   cors({
@@ -10,7 +10,6 @@ app.use(
     methods: ["GET", "POST"],
   })
 );
-downloadDaily();
 
 app.get("/film/randomId", async (req, res) => {
   const Films = await getLinesFilms();

@@ -5,7 +5,7 @@
 **/.env
 **/package-lock.json
 **.gz
-**IDS.json
+# **IDS.json
 /.pnp
 .pnp.js
 
