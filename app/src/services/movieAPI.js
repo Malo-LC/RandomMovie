@@ -3,7 +3,6 @@ import axios from "axios";
 class API {
   constructor() {
     this.endpoint = process.env.REACT_APP_API_URL;
-    this.key = process.env.REACT_APP_API_KEY;
   }
 
   getRandomFilmId() {
@@ -15,13 +14,13 @@ class API {
   }
 
   getMovieDbId(type, id, detail = "") {
-    return axios.get(`https://api.themoviedb.org/3/${type}/${id}${detail}?api_key=${this.key}&language=fr`);
+    return axios.get(`${this.endpoint}/movie-db/${id}?type=${type}&detail=${detail}`);
   }
   getSearch(search) {
-    return axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${this.key}&language=fr&query=${search}&page=1`);
+    return axios.get(`${this.endpoint}/movie-db/search?search=${search}`);
   }
-  getRoute(type, detail) {
-    return axios.get(`https://api.themoviedb.org/3/${type}/${detail}?api_key=${this.key}&language=fr`);
+  async getRoute(type, detail) {
+    return axios.get(`${this.endpoint}/movie-db/route?type=${type}&detail=${detail}`);
   }
 }
 

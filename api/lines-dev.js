@@ -76,6 +76,7 @@ function transformGzToJson(name, to) {
           let json = fs.readFileSync(to, "UTF-8");
           json = JSON.parse(json);
           json = json.filter((item) => item.popularity > 5);
+          json = json.map((item) => item.id);
           fs.writeFile(to, JSON.stringify(json), "UTF-8", (err) => {
             if (err) console.log(err);
             console.log(json.length);

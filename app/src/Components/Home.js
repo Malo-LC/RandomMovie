@@ -5,10 +5,13 @@ import { useNavigate } from "react-router-dom";
 export function Home() {
   const navigate = useNavigate();
   const [nowPlaying, setNowPlaying] = useState(null);
+  const [Loading, setLoading] = useState(false);
 
   const getLatestMovies = async () => {
     try {
+      setTimeout(() => setLoading(true), 2000);
       const res = await API.getRoute("movie", "now_playing");
+      setLoading(false);
       setNowPlaying(res.data);
     } catch (error) {
       console.log(error);
@@ -35,7 +38,10 @@ export function Home() {
             </div>
           </div>
         ) : (
-          <h3 className="text-2xl">Loading...</h3>
+          <div className="flex flex-col items-center">
+            <h3 className="text-2xl">Loading...</h3>
+            {Loading && <div className="mt-5">First loading can take some time, due to server starting</div>}
+          </div>
         )}
       </div>
     </div>

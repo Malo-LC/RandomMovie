@@ -74,9 +74,7 @@ export function Film() {
                   <p className="p-4 pb-1">
                     <strong className="underline">Réalisateur:</strong> {getReal("name")}
                   </p>
-                  {getReal("profile_path") && (
-                    <img src={`https://image.tmdb.org/t/p/original${getReal("profile_path")}`} className="w-7" alt="Réalisateur" />
-                  )}
+                  {getReal("profile_path") && <img src={`https://image.tmdb.org/t/p/original${getReal("profile_path")}`} className="w-7" alt="Réalisateur" />}
                 </div>
               )}
               <div className="p-4 pt-0 flex pb-1">
