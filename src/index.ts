@@ -16,6 +16,28 @@ app.get('/movie-db/route', async (c) => {
   return c.json(data.results);
 });
 
+app.get("/movie-db/:movieId", async (c) => {
+  const { movieId } = c.req.param();
+  const movieDbRes = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=fr`);
+  const data = await movieDbRes.json();
+  return c.json(data);
+});
+
+app.get("/movie-db/:movieId/credits", async (c) => {
+  const { movieId } = c.req.param();
+  const movieDbRes = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}&language=fr`);
+  const data = await movieDbRes.json();
+  return c.json(data);
+});
+
+
+app.get("/movie-db/:movieId/similar", async (c) => {
+  const { movieId } = c.req.param();
+  const movieDbRes = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${API_KEY}&language=fr`);
+  const data = await movieDbRes.json();
+  return c.json(data.results);
+});
+
 const port = 3000
 console.log(`Server is running on port ${port}`)
 

@@ -13,7 +13,7 @@ export function Film() {
   const getFilmInfo = async () => {
     try {
       setLoading(true);
-      const res = await API.getMovieDbId("movie", id);
+      const res = await API.fetchMovieById("movie", id);
       setFilm(res.data);
       setLoading(false);
     } catch (error) {
@@ -21,11 +21,11 @@ export function Film() {
     }
   };
   const getCreditsFilm = async () => {
-    const res = await API.getMovieDbId("movie", film.id, "/credits");
+    const res = await API.fetchMovieById("movie", film.id, "/credits");
     setCredits(res.data);
   };
   const getSimilarFilms = async () => {
-    const res = await API.getMovieDbId("movie", film.id, "/similar");
+    const res = await API.fetchMovieById("movie", film.id, "/similar");
     setSimilar(res.data);
   };
 

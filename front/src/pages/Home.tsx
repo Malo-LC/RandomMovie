@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/MovieAPI';
-import { Movie } from '../types/MovieTypes.ts';
+import { MovieType } from '../types/MovieTypes.ts';
+import { MOVIES } from '../types/Routes.ts';
 
 export default function Home() {
   const navigate = useNavigate();
-  const [recentMovies, setRecentMovies] = useState<Movie[]>([]);
+  const [recentMovies, setRecentMovies] = useState<MovieType[]>([]);
 
   useEffect(() => {
-    api.getRoute('movie', 'now_playing').then((movies) => setRecentMovies(movies));
+    api.getCustomRoute('movie', 'now_playing').then((movies) => setRecentMovies(movies));
   }, []);
 
   return (
@@ -22,7 +23,7 @@ export default function Home() {
               <div
                 key={movie.id}
                 className="flex h-[450px] p-5 flex-col items-center cursor-pointer border"
-                onClick={() => navigate(`/film/${movie.id}`)}
+                onClick={() => navigate(`${MOVIES}/${movie.id}`)}
               >
                 <img
                   className="max-w-[250px] pb-4 rounded-lg"

@@ -12,7 +12,7 @@ export function Acteur() {
 
   async function getActeurInfo() {
     try {
-      const res = await API.getMovieDbId("person", id);
+      const res = await API.fetchMovieById("person", id);
       setActeur(res.data);
     } catch (error) {
       console.log(error);
@@ -21,7 +21,7 @@ export function Acteur() {
 
   async function getCreditsActor() {
     setLoading(true);
-    const res = await API.getMovieDbId("person", acteur.id, "/movie_credits");
+    const res = await API.fetchMovieById("person", acteur.id, "/movie_credits");
     setCredits(res.data);
     setLoading(false);
   }
