@@ -1,11 +1,10 @@
 import ky from 'ky';
-import { MovieCreditsType, MovieDetailType, MovieType } from '../types/MovieTypes.ts';
+import { ActorCreditsType, ActorType, MovieCreditsType, MovieDetailType, MovieType } from '../types/MovieTypes.ts';
 
 class API {
   private readonly api = ky.create({ prefixUrl: import.meta.env.VITE_API_ENDPOINT });
 
-  constructor() {
-  }
+  constructor() {}
 
   getRandomFilmId() {
     return this.api.get(`film/randomId`).json();
@@ -25,6 +24,14 @@ class API {
 
   fetchSimilarMovies(id: string) {
     return this.api.get<MovieType[]>(`movie-db/${id}/similar`).json();
+  }
+
+  fetchActorById(id: string) {
+    return this.api.get<ActorType>(`movie-db/person/${id}`).json();
+  }
+
+  fetchActorCredits(id: string) {
+    return this.api.get<ActorCreditsType>(`movie-db/person/${id}/movie-credits`).json();
   }
 
   getSearch(search: string) {

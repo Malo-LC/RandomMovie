@@ -13,20 +13,20 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="h-screen bg-black text-white flex flex-col items-center">
-      <h1 className="text-9xl my-12">Accueil</h1>
-      <div className="flex flex-wrap justify-center w-full">
+    <div className="flex h-screen flex-col items-center bg-black text-white">
+      <h1 className="my-12 text-9xl">Accueil</h1>
+      <div className="flex w-full flex-wrap justify-center">
         <div className="w-full">
-          <div className="text-3xl my-3 text-center">Derniers films :</div>
+          <div className="my-3 text-center text-3xl">Derniers films :</div>
           <div className="flex flex-row flex-wrap items-center justify-center">
             {recentMovies.map((movie) => (
               <div
                 key={movie.id}
-                className="flex h-[450px] p-5 flex-col items-center cursor-pointer border"
+                className="flex h-[450px] cursor-pointer flex-col items-center border p-5"
                 onClick={() => navigate(`${MOVIES}/${movie.id}`)}
               >
                 <img
-                  className="max-w-[250px] pb-4 rounded-lg"
+                  className="max-w-[250px] rounded-lg pb-4"
                   src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                   alt=""
                 />
