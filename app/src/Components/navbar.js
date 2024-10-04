@@ -1,7 +1,7 @@
 import { React } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search } from "./search";
-import API from "../services/movieAPI";
+import API from "../../../front/src/services/MovieAPI";
 
 export function Navbar() {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import API from "../services/movieAPI";
+import API from "../../../front/src/services/MovieAPI";
 
 export function Film() {
   const { id } = useParams();

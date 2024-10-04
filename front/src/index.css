@@ -1,0 +1,11 @@
+@import url('https://api.fonts.coollabs.io/css2?family=Montserrat&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    overflow-x: hidden;
+    background-color: black;
+    font-family: 'Montserrat', sans-serif;
+}

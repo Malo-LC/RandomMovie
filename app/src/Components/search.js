@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../services/movieAPI";
+import API from "../../../front/src/services/MovieAPI";
 
 export function Search() {
   const [search, setSearch] = useState(null);

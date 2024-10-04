@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Film } from "./Components/Film";
 import { Acteur } from "./Components/Acteur";
 import { Navbar } from "./Components/navbar";
-import { Home } from "./Components/Home";
+import { Home } from "../../front/src/pages/Home";
 
 function App() {
   return (
