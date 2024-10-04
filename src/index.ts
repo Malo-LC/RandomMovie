@@ -1,12 +1,31 @@
 import 'dotenv/config';
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
+import { downloadDaily, getLinesActors, getLinesFilms } from './lines-dev';
 
-const app = new Hono();
+downloadDaily();
+
+const app: Hono = new Hono();
 const API_KEY = process.env.MOVIE_DB_API_KEY;
+
+if (!API_KEY) {
+  throw new Error('Please provide a Movie DB API key');
+}
 
 app.get('/', (c) => {
   return c.text('Hello Hono!');
+});
+
+app.get('/movies/random-id', async (c) => {
+  const movieIds: number[] = getLinesFilms();
+  const randomId = movieIds[Math.floor(Math.random() * movieIds.length)];
+  return c.json({ randomId });
+});
+
+app.get('/actors/random-id', async (c) => {
+  const actorIds: number[] = getLinesActors();
+  const randomId = actorIds[Math.floor(Math.random() * actorIds.length)];
+  return c.json({ randomId });
 });
 
 app.get('/movie-db/route', async (c) => {
