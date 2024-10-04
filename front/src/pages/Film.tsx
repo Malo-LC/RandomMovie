@@ -10,17 +10,10 @@ export default function Film() {
   const [film, setFilm] = useState<MovieDetailType | undefined>();
   const [credits, setCredits] = useState<MovieCreditsType | undefined>();
   const [similar, setSimilar] = useState<MovieType[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!id) return;
-    api
-      .fetchMovieById(id)
-      .then((film) => {
-        setFilm(film);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    api.fetchMovieById(id).then(setFilm);
     api.fetchMovieCredits(id).then(setCredits);
     api.fetchSimilarMovies(id).then(setSimilar);
   }, [id]);
@@ -36,94 +29,82 @@ export default function Film() {
     return `${hours}h ${min}min`;
   };
 
+  if (!film) return <div>Chargement...</div>;
+
   return (
-    <div className="flex h-max w-screen flex-col items-center p-10 pt-6">
-      {film ? (
-        <div className="m-2 flex w-10/12 rounded-lg border text-white">
-          <div className="mt-5">
-            <img
-              className="m-4 max-w-xs rounded-lg"
-              src={`https://image.tmdb.org/t/p/original${film.poster_path}`}
-              alt="Poster du film"
-            />
+    <div className="flex h-screen w-screen flex-col items-center p-6">
+      <div className="m-2 flex h-full w-10/12 rounded-lg border text-white">
+        <img
+          className="h-full rounded-lg object-contain p-4"
+          src={`https://image.tmdb.org/t/p/original${film.poster_path}`}
+          alt="Poster du film"
+        />
+        <div className="w-full overflow-y-scroll">
+          <div className="flex flex-row items-center p-0">
+            <a href={`https://www.imdb.com/title/${film.imdb_id}`} target="_blank" rel="noreferrer">
+              <h1 className="p-4 text-5xl">{film.title}</h1>
+            </a>
+            <p className="p-4">{Math.round(film.vote_average * 100) / 100}⭐</p>
           </div>
-          <div className="w-full">
-            <div className="flex flex-row items-center p-0">
-              <a href={`https://www.imdb.com/title/${film.imdb_id}`} target="_blank" rel="noreferrer">
-                <h1 className="p-4 text-5xl">{film.title}</h1>
-              </a>
-              <p className="p-4">{Math.round(film.vote_average * 100) / 100}⭐</p>
-            </div>
-            <p className="pl-4">
-              {dayjs(film.release_date).year()} {runtimeToHour(film.runtime)}
-            </p>
-            <div>
-              {credits?.crew && (
-                <div className="flex flex-row items-center pb-0">
-                  <p className="p-4 pb-1">
-                    <strong className="underline">Réalisateur:</strong> {getReal('name')}
-                  </p>
-                  {getReal('profile_path') && (
-                    <img
-                      src={`https://image.tmdb.org/t/p/original${getReal('profile_path')}`}
-                      className="w-7"
-                      alt="Réalisateur"
-                    />
-                  )}
-                </div>
-              )}
-              <div className="flex p-4 pb-1 pt-0">
-                <p className="font-bold underline">Genres: </p>
-                {film.genres.map((genre) => {
-                  return <p key={genre.id}> &ensp;{genre.name}</p>;
-                })}
+          <p className="pl-4">
+            {dayjs(film.release_date).year()} {runtimeToHour(film.runtime)}
+          </p>
+          <div>
+            {credits?.crew && (
+              <div className="flex flex-row items-center pb-0">
+                <p className="p-4 pb-1">
+                  <strong className="underline">Réalisateur:</strong> {getReal('name')}
+                </p>
+                <img
+                  src={`https://image.tmdb.org/t/p/original${getReal('profile_path')}`}
+                  className="w-7"
+                  alt="Réalisateur"
+                />
               </div>
-              <p className="p-4">{film.overview}</p>
-              <div className="flex flex-row flex-wrap pl-4">
-                {credits?.cast.slice(0, 10).map((acteur) => (
-                  <div className="m-2 flex flex-col items-center" key={acteur.id}>
-                    <Link to={`${ACTORS}/${acteur.id}`}>
-                      <img
-                        src={`https://image.tmdb.org/t/p/original${acteur.profile_path}`}
-                        className="w-24 rounded"
-                        alt="acteur"
-                      />
-                    </Link>
-                    <p className="overflow-hidden text-xs">{acteur.name}</p>
-                  </div>
-                ))}
-              </div>
+            )}
+            <div className="flex p-4 pb-1 pt-0">
+              <p className="font-bold underline">Genres: </p>
+              {film.genres.map((genre) => {
+                return <p key={genre.id}> &ensp;{genre.name}</p>;
+              })}
             </div>
-            <>
-              <p className="pl-4 font-bold underline">Recommandations:</p>
-              <div className="mt-1 flex flex-row flex-wrap">
-                {similar.slice(0, 6).map((similarMovie) => (
-                  <Link
-                    className="mb-3 flex w-2/12 flex-col items-center"
-                    key={similarMovie.id}
-                    to={`${MOVIES}/${similarMovie.id}`}
-                  >
+            <p className="p-4">{film.overview}</p>
+            <div className="flex flex-row flex-wrap pl-4">
+              {credits?.cast.slice(0, 10).map((acteur) => (
+                <div className="m-2 flex flex-col items-center" key={acteur.id}>
+                  <Link to={`${ACTORS}/${acteur.id}`}>
                     <img
-                      src={`https://image.tmdb.org/t/p/original${similarMovie.backdrop_path}`}
-                      className="w-24 cursor-pointer rounded"
+                      src={`https://image.tmdb.org/t/p/original${acteur.profile_path}`}
+                      className="w-24 rounded"
                       alt="acteur"
                     />
-                    <p className="overflow-hidden text-xs">{similarMovie.title}</p>
                   </Link>
-                ))}
-              </div>
-            </>
+                  <p className="overflow-hidden text-xs">{acteur.name}</p>
+                </div>
+              ))}
+            </div>
           </div>
+          <>
+            <p className="pl-4 font-bold underline">Recommandations:</p>
+            <div className="mt-1 flex flex-row flex-wrap">
+              {similar.slice(0, 6).map((similarMovie) => (
+                <Link
+                  className="mb-3 flex w-2/12 flex-col items-center"
+                  key={similarMovie.id}
+                  to={`${MOVIES}/${similarMovie.id}`}
+                >
+                  <img
+                    src={`https://image.tmdb.org/t/p/original${similarMovie.backdrop_path}`}
+                    className="w-24 cursor-pointer rounded"
+                    alt="acteur"
+                  />
+                  <p className="overflow-hidden text-xs">{similarMovie.title}</p>
+                </Link>
+              ))}
+            </div>
+          </>
         </div>
-      ) : (
-        <>
-          {loading ? (
-            <h1 className="text-5xl text-white">Chargement...</h1>
-          ) : (
-            <h1 className="text-5xl text-white">Aucun Film...</h1>
-          )}
-        </>
-      )}
+      </div>
     </div>
   );
 }
