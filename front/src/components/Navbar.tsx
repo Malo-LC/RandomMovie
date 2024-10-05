@@ -15,7 +15,7 @@ export function Navbar() {
   }
 
   return (
-    <div className="flex w-screen flex-row items-center justify-center bg-black">
+    <div className="flex w-screen flex-row items-center justify-center">
       <button type="button" onClick={() => navigate('/')} className="m-5 mb-0 w-40 bg-slate-500">
         Accueil
       </button>

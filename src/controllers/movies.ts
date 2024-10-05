@@ -25,7 +25,6 @@ moviesController.get('/random-id', async (c) => {
 });
 
 moviesController.get('/now-playing', async (c) => {
-  console.log(`${MOVIE_DB_API_URL}/movie/now_playing?api_key=${API_KEY}&language=fr`);
   const movieDbRes = await fetch(`${MOVIE_DB_API_URL}/movie/now_playing?api_key=${API_KEY}&language=fr`);
   const data = await movieDbRes.json();
   return c.json(data.results);
