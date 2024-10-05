@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import API from "../../../front/src/services/MovieAPI";
+import API from "../../../front/src/services/MoviesService";
 import { RiLoader2Line } from "react-icons/ri";
 
 export function Acteur() {

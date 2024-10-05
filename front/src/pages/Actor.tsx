@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../services/MovieAPI';
+import api from '../services/MoviesService.ts';
 import { ActorCreditsType, ActorType } from '../types/MovieTypes.ts';
 import { MOVIES } from '../types/Routes.ts';
 

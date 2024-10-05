@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../services/MovieAPI';
+import api from '../services/MoviesService.ts';
 import { MovieType } from '../types/MovieTypes.ts';
 import { MOVIES } from '../types/Routes.ts';
 
@@ -9,7 +9,7 @@ export default function Home() {
   const [recentMovies, setRecentMovies] = useState<MovieType[]>([]);
 
   useEffect(() => {
-    api.getCustomRoute('movie', 'now_playing').then((movies) => setRecentMovies(movies));
+    api.getNowPlaying().then((movies) => setRecentMovies(movies));
   }, []);
 
   return (

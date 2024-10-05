@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.13.1",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
     "hono": "^4.6.3"
   },

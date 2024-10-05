@@ -15,6 +15,10 @@ export type MovieType = {
   vote_count: number;
 };
 
+export type RandomIdType = {
+  randomId: number;
+};
+
 export type MovieDetailType = {
   adult: boolean;
   backdrop_path: string;

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import api from '../services/MovieAPI';
+import api from '../services/MoviesService.ts';
 import { CrewType, MovieCreditsType, MovieDetailType, MovieType } from '../types/MovieTypes.ts';
 import { ACTORS, MOVIES } from '../types/Routes.ts';
 
