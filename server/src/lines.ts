@@ -25,5 +25,7 @@ export async function downloadDaily() {
 
     await extractGz(moviesName, 'movieIDS.json');
     await extractGz(actorName, 'actorIDS.json');
+  } else {
+    console.log('Files already downloaded');
   }
 }
