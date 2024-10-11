@@ -23,7 +23,7 @@ class API {
   }
 
   getSearch(search: string) {
-    return this.api.get(`search?search=${search}`).json();
+    return this.api.get<MovieType[]>(`search?search=${search}`).json();
   }
 
   getNowPlaying() {

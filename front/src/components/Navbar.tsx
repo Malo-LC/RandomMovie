@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import movieService from '../services/MoviesService.ts';
 import personsService from '../services/PersonsService.ts';
 import { ACTORS, MOVIES } from '../types/Routes.ts';
+import SearchBar from './SearchBar.tsx';
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export function Navbar() {
       <button type="button" onClick={() => getRandomActorId()} className="m-5 mb-0 w-40 bg-slate-500">
         Acteur au hasard
       </button>
-      {/*<Search />*/}
+      <SearchBar />
     </div>
   );
 }

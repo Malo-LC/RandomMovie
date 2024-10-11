@@ -4,13 +4,13 @@ import { Hono } from 'hono';
 import moviesController from './controllers/movies';
 import personsController from './controllers/persons';
 import { downloadDaily } from './lines';
-import { API_KEY, PORT } from './utils/config';
+import { API_KEY, NODE_ENV, PORT } from './utils/config';
 
 const app: Hono = new Hono();
 
 if (!API_KEY) {
   throw new Error('Please provide a Movie DB API key');
-} else {
+} else if (NODE_ENV === 'development') {
   downloadDaily();
 }
 
