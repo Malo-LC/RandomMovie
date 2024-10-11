@@ -3,10 +3,10 @@ import { Navbar } from './components/Navbar.tsx';
 
 function App() {
   return (
-    <>
+    <div className="flex h-screen flex-col bg-black">
       <Navbar />
       <Outlet />
-    </>
+    </div>
   );
 }
 
